@@ -1,0 +1,134 @@
+<html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>АРМ ГМ</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+
+<!--navbar start-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--<a class="navbar-brand" href="/">Sweater</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">АРМ ГМ</a>
+            </li>
+        </ul>
+        <!--<div class="navbar-text mr-3">${name}</div>-->
+    </div>
+</nav>
+<!--navbar end-->
+
+<!--table start-->
+{{#detectors}}
+
+    Данные с детектора по адресу: address
+    <div class="mx-auto" style="width: 80%;">
+        <table class="table table-striped my-3">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Параметр</th>
+                <th scope="col">Значение</th>
+                <th scope="col">Единица измерения</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>ip-адрес</td>
+                <td>{{ip}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>mac-адрес</td>
+                <td>{{mac}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Серийный номер</td>
+                <td>{{serial}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Дата ввода в эксплуатацию</td>
+                <td>{{startData}}</td>
+                <td>YYYY-MM-DD HH-MM-SS</td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>Гарантийный период</td>
+                <td>{{warrantyPeriod}}</td>
+                <td>лет (год)</td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>Время непрерывной работы</td>
+                <td>{{workTime}}</td>
+                <td>час(а/ов)</td>
+            </tr>
+            <tr>
+                <th scope="row">7</th>
+                <td>Общее время работы</td>
+                <td>{{allWorkTime}}</td>
+                <td>час(а/ов)</td>
+            </tr>
+            <tr>
+                <th scope="row">8</th>
+                <td>Количество проходов</td>
+                <td>{{serial}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">9</th>
+                <td>Количество срабатываний</td>
+                <td>{{positiveDetectedCount}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">10</th>
+                <td>Рабочая частота</td>
+                <td>{{frequency}}</td>
+                <td>Гц</td>
+            </tr>
+            <tr>
+                <th scope="row">11</th>
+                <td>Ошибки</td>
+                <td>{{errors}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">12</th>
+                <td>Адрес местоположения</td>
+                <td>{{address}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">13</th>
+                <td>Время работы на аварийном питании</td>
+                <td>{{emergencyPowerTime}}</td>
+                <td>час(а/ов)</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{{/detectors}}
+<!--table end-->
