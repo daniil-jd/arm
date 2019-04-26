@@ -27,6 +27,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">АРМ ГМ</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/url-settings">Настройки URL</a>
+            </li>
         </ul>
         <!--<div class="navbar-text mr-3">${name}</div>-->
     </div>
@@ -132,3 +135,11 @@
     </div>
 {{/detectors}}
 <!--table end-->
+<br>
+<!--errors start-->
+{{#errors}}
+    <div class="container mr-3">
+        {{.}}
+    </div>
+{{/errors}}
+<!--errors end-->
