@@ -11,115 +11,139 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
  * Класс-сущность "Детектор".
  */
-@Entity
-@Table(name = "DETECTOR")
+//@Entity
+//@Table(name = "DETECTOR")
 @XmlRootElement(name = "detector")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Detector {
     /**
      * id.
      */
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
     private Integer id;
 
     /**
      * ip адрес.
      */
-    @Column(name = "IP")
+//    @Column(name = "IP")
     @XmlElement
     private String ip;
 
     /**
      * Адрес местоположения.
      */
-    @Column(name = "ADDRESS")
+//    @Column(name = "ADDRESS")
     @XmlElement
     private String address;
 
     /**
-     * mac адрес.
-     */
-    @Column(name = "MAC")
-    @XmlElement
-    private String mac;
-
-    /**
      * Серийный номер.
      */
-    @Column(name = "SERIAL_NUMBER")
+//    @Column(name = "SERIAL_NUMBER")
     @XmlElement
     private String serial;
 
     /**
      * Дата ввода в эксплуатацию.
      */
-    @Column(name = "START_DATE")
+//    @Column(name = "START_DATE")
     @XmlElement
-    private Date startData;
+    private LocalDate startDate;
 
     /**
      * Период гарантии.
      */
-    @Column(name = "WARRANTY_PERIOD")
+//    @Column(name = "WARRANTY_PERIOD")
     @XmlElement
     private String warrantyPeriod;
 
     /**
      * Время непрерывной работы.
      */
-    @Column(name = "WORK_TIME")
+//    @Column(name = "WORK_TIME")
     @XmlElement
     private String workTime;
 
     /**
      * Общее время работы.
      */
-    @Column(name = "ALL_WORK_TIME")
+//    @Column(name = "ALL_WORK_TIME")
     @XmlElement
     private String allWorkTime;
 
     /**
      * Время работы на аварийном питании.
      */
-    @Column(name = "EMERGENCY_POWER_TIME")
+//    @Column(name = "EMERGENCY_POWER_TIME")
     @XmlElement
     private String emergencyPowerTime;
 
     /**
      * Количество проходов.
      */
-    @Column(name = "DETECTED_COUNT")
+//    @Column(name = "DETECTED_COUNT")
     @XmlElement
     private long detectedCount;
 
     /**
      * Количество срабатываний.
      */
-    @Column(name = "POSITIVE_DETECTED_COUNT")
+//    @Column(name = "POSITIVE_DETECTED_COUNT")
     @XmlElement
     private long positiveDetectedCount;
 
     /**
      * Рабочая частота.
      */
-    @Column(name = "FREQUENCY")
+//    @Column(name = "FREQUENCY")
     @XmlElement
     private double frequency;
 
     /**
+     * Дата обращения.
+     */
+//    @Column(name = "DATE")
+    @XmlElement
+    private LocalDate date;
+
+    /**
      * Обшибки в процессе работы.
      */
-    @Column(name = "ERRORS")
+//    @Column(name = "ERRORS")
     @XmlElement
     private String errors;
 
+    public Detector() {
+    }
+
+    public Detector(String ip, String address,
+                    String serial, LocalDate startDate,
+                    String warrantyPeriod, String workTime,
+                    String allWorkTime, String emergencyPowerTime,
+                    long detectedCount, long positiveDetectedCount,
+                    double frequency, LocalDate date, String errors) {
+        this.ip = ip;
+        this.address = address;
+        this.serial = serial;
+        this.startDate = startDate;
+        this.warrantyPeriod = warrantyPeriod;
+        this.workTime = workTime;
+        this.allWorkTime = allWorkTime;
+        this.emergencyPowerTime = emergencyPowerTime;
+        this.detectedCount = detectedCount;
+        this.positiveDetectedCount = positiveDetectedCount;
+        this.frequency = frequency;
+        this.date = date;
+        this.errors = errors;
+    }
 
     public Integer getId() {
         return id;
@@ -145,14 +169,6 @@ public class Detector {
         this.address = address;
     }
 
-    public String getMac() {
-        return mac;
-    }
-
-    public void setMac(String mac) {
-        this.mac = mac;
-    }
-
     public String getSerial() {
         return serial;
     }
@@ -161,12 +177,12 @@ public class Detector {
         this.serial = serial;
     }
 
-    public Date getStartData() {
-        return startData;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStartData(Date startData) {
-        this.startData = startData;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public String getWarrantyPeriod() {
@@ -223,6 +239,14 @@ public class Detector {
 
     public void setFrequency(double frequency) {
         this.frequency = frequency;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getErrors() {
