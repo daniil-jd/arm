@@ -1,14 +1,20 @@
 package ru.arm.gm.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ru.arm.gm.domain.Detector;
+import ru.arm.gm.domain.DetectorDTO;
+import ru.arm.gm.service.DetectorService;
 
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +25,9 @@ import java.util.Properties;
 
 @Controller
 public class ReceivingController {
+
+    @Autowired
+    private DetectorService service;
 
     @Value("${url.settings}")
     String urlSettings;
@@ -31,16 +40,24 @@ public class ReceivingController {
         for (String url : getUrls()) {
             if (isURL(url)) {
                 try {
-                    detectors.add(restTemplate.getForObject(
-                            url + "/api/detector",
-                            Detector.class));
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.set("Content-Type", "application/xml");
+                    HttpEntity entity = new HttpEntity(headers);
+
+                    detectors.add(new Detector(
+                            restTemplate.exchange(
+                                    url + "/api/detector",
+                                    HttpMethod.GET, entity,
+                                    DetectorDTO.class).getBody()
+                    ));
                 } catch (ResourceAccessException e) {
                     errors.add("Ресурс по адресу " + url
                             + " не доступен.");
                 }
-
             }
         }
+        detectors = service.saveDetectors(detectors);
+
         model.addAttribute("errors", errors);
         model.addAttribute("detectors", detectors);
         return "mainArm";

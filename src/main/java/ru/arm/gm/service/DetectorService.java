@@ -17,4 +17,15 @@ public class DetectorService {
     public List<Detector> getAll() {
         return repository.getAll();
     }
+
+    public List<Detector> saveDetectors(List<Detector> detectorsToSave) {
+        detectorsToSave.forEach(detector -> {
+            Integer id = repository.saveDetector(detector);
+            detector.getDetectorData().forEach(data -> {
+                data.setDetectorId(id);
+                repository.saveData(data);
+            });
+        });
+        return getAll();
+    }
 }
