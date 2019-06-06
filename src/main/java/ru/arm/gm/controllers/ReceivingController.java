@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ru.arm.gm.domain.Detector;
-import ru.arm.gm.domain.DetectorDTO;
+import ru.arm.gm.dto.DetectorDTO;
 import ru.arm.gm.service.DetectorService;
 
 import java.io.File;
@@ -37,6 +37,7 @@ public class ReceivingController {
         List<String> errors = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
         List<Detector> detectors = new ArrayList<>();
+        List<DetectorDTO> dtos = new ArrayList<>();
         for (String url : getUrls()) {
             if (isURL(url)) {
                 try {
@@ -44,12 +45,12 @@ public class ReceivingController {
                     headers.set("Content-Type", "application/xml");
                     HttpEntity entity = new HttpEntity(headers);
 
-                    detectors.add(new Detector(
-                            restTemplate.exchange(
-                                    url + "/api/detector",
-                                    HttpMethod.GET, entity,
-                                    DetectorDTO.class).getBody()
-                    ));
+                    DetectorDTO dto = restTemplate.exchange(
+                            url + "/api/detector",
+                            HttpMethod.GET, entity,
+                            DetectorDTO.class).getBody();
+                    detectors.add(new Detector(dto));
+                    dtos.add(dto);
                 } catch (ResourceAccessException e) {
                     errors.add("Ресурс по адресу " + url
                             + " не доступен.");
@@ -59,7 +60,7 @@ public class ReceivingController {
         detectors = service.saveDetectors(detectors);
 
         model.addAttribute("errors", errors);
-        model.addAttribute("detectors", detectors);
+        model.addAttribute("detectors", dtos);
         return "mainArm";
     }
 

@@ -1,9 +1,10 @@
-package ru.arm.gm.domain;
+package ru.arm.gm.dto;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.arm.gm.domain.ValueWithAttribute;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,10 +40,10 @@ public class DetectorDTO {
     private ValueWithAttribute emergencyPowerTime;
 
     @XmlElement(name = "detected_count")
-    private long detectedCount;
+    private int detectedCount;
 
     @XmlElement(name = "positive_detected_count")
-    private long positiveDetectedCount;
+    private int positiveDetectedCount;
 
     @XmlElement(name = "frequency")
     private ValueWithAttribute frequency;

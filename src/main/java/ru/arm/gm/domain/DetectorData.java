@@ -33,31 +33,31 @@ public class DetectorData {
      * Время непрерывной работы.
      */
     @XmlElement
-    private String workTime;
+    private double workTime;
 
     /**
      * Общее время работы.
      */
     @XmlElement
-    private String allWorkTime;
+    private double allWorkTime;
 
     /**
      * Время работы на аварийном питании.
      */
     @XmlElement
-    private String emergencyPowerTime;
+    private double emergencyPowerTime;
 
     /**
      * Количество проходов.
      */
     @XmlElement
-    private long detectedCount;
+    private int detectedCount;
 
     /**
      * Количество срабатываний.
      */
     @XmlElement
-    private long positiveDetectedCount;
+    private int positiveDetectedCount;
 
     /**
      * Рабочая частота.

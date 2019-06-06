@@ -3,6 +3,7 @@ package ru.arm.gm.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.arm.gm.dto.DetectorDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -70,9 +71,9 @@ public class Detector {
         this.detectorData.add(new DetectorData(
                 null,
                 null,
-                detectorDTO.getWorkTime().getValue(),
-                detectorDTO.getAllWorkTime().getValue(),
-                detectorDTO.getEmergencyPowerTime().getValue(),
+                Double.parseDouble(detectorDTO.getWorkTime().getValue()),
+                Double.parseDouble(detectorDTO.getAllWorkTime().getValue()),
+                Double.parseDouble(detectorDTO.getEmergencyPowerTime().getValue()),
                 detectorDTO.getDetectedCount(),
                 detectorDTO.getPositiveDetectedCount(),
                 Double.parseDouble(detectorDTO.getFrequency().getValue()),

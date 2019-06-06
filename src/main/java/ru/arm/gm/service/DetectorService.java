@@ -2,6 +2,7 @@ package ru.arm.gm.service;
 
 import org.springframework.stereotype.Service;
 import ru.arm.gm.domain.Detector;
+import ru.arm.gm.dto.DetectorDTO;
 import ru.arm.gm.repository.DetectorRepository;
 
 import java.util.List;

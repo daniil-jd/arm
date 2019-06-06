@@ -11,11 +11,11 @@ CREATE TABLE DETECTOR_DATA
 (
   ID                      INTEGER primary key AUTO_INCREMENT,
   DETECTOR_ID             INTEGER      not null,
-  WORK_TIME               INTEGER      not null,
-  ALL_WORK_TIME           INTEGER      not null,
-  EMERGENCY_POWER_TIME    INTEGER      not null,
-  DETECTED_COUNT          BIGINT       not null,
-  POSITIVE_DETECTED_COUNT BIGINT       not null,
+  WORK_TIME               DOUBLE      not null,
+  ALL_WORK_TIME           DOUBLE      not null,
+  EMERGENCY_POWER_TIME    DOUBLE      not null,
+  DETECTED_COUNT          INTEGER       not null,
+  POSITIVE_DETECTED_COUNT INTEGER       not null,
   FREQUENCY               DOUBLE       not null,
   DATE                    DATE         not null,
   ERRORS                  VARCHAR(255) not null
