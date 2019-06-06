@@ -15,7 +15,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script type="text/javascript" src="/js/chartR.js"></script>
+    <script type="text/javascript" src="/js/chart.js"></script>
+    <script type="text/javascript" src="/js/combinationChart.js"></script>
 </head>
 
 <body>
@@ -50,7 +51,6 @@
     {{relativeErrorCountSpeed}}
     {{detectedCountSpeed}}
     {{positiveDetectedCountSpeed}}
-    {{chart_1}}
 {{/calcs}}
 <!--table end-->
 
@@ -58,6 +58,11 @@
     <div class="row" style="margin-bottom:30px">
         <div class="col-md-10" style="margin-top:20px">
             <div id="chart" style="width:100%; height:400px;"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:30px">
+        <div class="col-md-10" style="margin-top:20px">
+            <div id="combination" style="width:100%; height:400px;"></div>
         </div>
     </div>
 </div>
@@ -73,7 +78,9 @@
         });
 
         chartData = JSON.parse( "{{chart_1}}".replace(/&quot;/g, '\"') );
+        console.log(chartData);
         drawChart(chartData);
+        drawCombinationChart();
     });
     /*]]>*/
 </script>

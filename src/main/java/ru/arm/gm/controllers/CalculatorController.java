@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ru.arm.gm.domain.Detector;
 import ru.arm.gm.domain.Period;
 import ru.arm.gm.dto.CalculateDTO;
+import ru.arm.gm.dto.ChartDTO;
 import ru.arm.gm.service.CalculatorService;
 import ru.arm.gm.service.DetectorService;
 
@@ -31,20 +32,24 @@ public class CalculatorController {
     public String calculateAllParams(Model model) {
         var detectors = detectorService.getAll();
         var calcDTOs = new ArrayList<CalculateDTO>();
+        var chartDTOs = new ArrayList<ChartDTO>();
         for (Detector detector : detectors) {
             calcDTOs.add(calculatorService.calculateAllParameters(
-                    detectors.get(0), Period.WEEK));
+                    detector, Period.WEEK));
+//            chartDTOs.add(calculatorService.buildChartFromDetector(
+//                    detector, Period.WEEK));
         }
 
         List<String> xLabels = Arrays.asList("1.12", "2.12", "3.12", "4.12", "5.12", "6.12" ,"7.12", "8.12");
         List<Integer> totalCount = Arrays.asList(674, 820, 1156, 1024, 1055, 998, 832, 720);
         List<Integer> positiveCount = Arrays.asList(350, 452, 683, 601, 598, 535, 340, 340);
+        ChartDTO chart = calculatorService.buildChartFromDetector(detectors.get(0), Period.WEEK);
 
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("positiveCount", positiveCount);
         model.addAttribute("xLabels", xLabels);
         model.addAttribute("calcs", calcDTOs);
-        model.addAttribute("chart_1", calculatorService.buildChartFromDetector(detectors.get(0), Period.WEEK));
+        model.addAttribute("chart_1", chart);
         return "calculate";
     }
 

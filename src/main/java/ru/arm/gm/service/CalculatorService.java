@@ -153,7 +153,7 @@ public class CalculatorService {
         Collections.reverse(days);
         Collections.reverse(positiveDetected.getData());
         Collections.reverse(detected.getData());
-        return new ChartDTO(title, yAxisText, days, positiveDetected, detected);
+        return new ChartDTO(title, yAxisText, days, new ArrayList<>() {{ add(positiveDetected); add(detected);}});
     }
 
     private double sumWorkTimeInPeriod(List<DetectorData> sourceData, int days) {
