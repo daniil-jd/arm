@@ -6,19 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChartSeriesDTO {
-    private String name;
-    private List<Integer> data = new ArrayList<>();
-
-    public ChartSeriesDTO(String name) {
-        this.name = name;
-    }
+public class CombinationChartDTO {
+    private List<String> data;
+    private List<ChartSeriesDTO> series;
 
     @Override
     public String toString() {

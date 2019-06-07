@@ -40,17 +40,14 @@ public class CalculatorController {
 //                    detector, Period.WEEK));
         }
 
-        List<String> xLabels = Arrays.asList("1.12", "2.12", "3.12", "4.12", "5.12", "6.12" ,"7.12", "8.12");
-        List<Integer> totalCount = Arrays.asList(674, 820, 1156, 1024, 1055, 998, 832, 720);
-        List<Integer> positiveCount = Arrays.asList(350, 452, 683, 601, 598, 535, 340, 340);
         ChartDTO chart = calculatorService.buildChartFromDetector(detectors.get(0), Period.WEEK);
+        ChartDTO chart2 = calculatorService.buildChartFromDetector(detectors.get(1), Period.WEEK);
+        var list = calculatorService.prepareCombinationChartData(detectors, Period.WEEK);
 
-        model.addAttribute("totalCount", totalCount);
-        model.addAttribute("positiveCount", positiveCount);
-        model.addAttribute("xLabels", xLabels);
         model.addAttribute("calcs", calcDTOs);
         model.addAttribute("chart_1", chart);
+        model.addAttribute("chart_2", chart2);
+        model.addAttribute("combination_chart", list);
         return "calculate";
     }
-
 }

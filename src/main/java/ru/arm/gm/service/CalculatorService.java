@@ -6,12 +6,7 @@ import ru.arm.gm.domain.Detector;
 import ru.arm.gm.domain.DetectorData;
 import ru.arm.gm.domain.Period;
 import ru.arm.gm.domain.ValueWithAttribute;
-import ru.arm.gm.dto.CalculateDTO;
-import ru.arm.gm.dto.ChartDTO;
-import ru.arm.gm.dto.ChartSeriesDTO;
-import ru.arm.gm.dto.ColorStatus;
-import ru.arm.gm.dto.DetectorDTO;
-import ru.arm.gm.dto.WarrantyDTO;
+import ru.arm.gm.dto.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -107,6 +102,88 @@ public class CalculatorService {
                 "-1",
                 "-1"
         );
+    }
+
+    public ArrayList prepareCombinationChartData(List<Detector> detectors, Period period) {
+        for (Detector detector : detectors) {
+            List<DetectorData> detectorData = detector.getDetectorData();
+            int size = detectorData.size();
+            if (size > 0) {
+                if (period == Period.DAY) {
+                    ArrayList result = new ArrayList();
+                    result.add(prepareDates(detector, 1));
+                    for (Detector det : detectors) {
+                        result.add(prepareSeries(det, 1));
+                    }
+                    return result;
+//                    return new ArrayList<>(){{
+//                        add(prepareDates(detector, 1));
+//                        add(prepareSeries(detectors, 1));
+//                    }};
+//                    return new CombinationChartDTO(
+//                            prepareDates(detector, 1),
+//                            prepareSeries(detectors, 1));
+                } else if (period == Period.WEEK) {
+                    ArrayList result = new ArrayList();
+                    result.add(prepareDates(detector, 7));
+                    for (Detector det : detectors) {
+                        result.add(prepareSeries(det, 7));
+                    }
+                    return result;
+//                    return new CombinationChartDTO(
+//                            prepareDates(detector, 7),
+//                            prepareSeries(detectors, 7));
+                } else if (period == Period.MONTH) {
+                    ArrayList result = new ArrayList();
+                    result.add(prepareDates(detector, 31));
+                    for (Detector det : detectors) {
+                        result.add(prepareSeries(det, 31));
+                    }
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+
+    private DateDTO prepareDates(Detector detector, int days) {
+        List<String> dates = new ArrayList<>();
+        List<DetectorData> detectorData = detector.getDetectorData();
+        int size = detectorData.size();
+        if (days == 1) {
+            dates.add(detectorData.get(size - 1).getDate().toString());
+        } else if (days == 7 || days == 31) {
+            List<DetectorData> calculateData = detectorData.stream().collect(Collectors.toList());
+            Collections.reverse(calculateData);
+            if (size < days) {
+                days = size;
+            }
+            for (int i = 0; i < days; i++) {
+                dates.add(detectorData.get(i).getDate().toString());
+            }
+        }
+        return new DateDTO(dates);
+    }
+
+    private ChartSeriesDTO prepareSeries(Detector detector, int days) {
+        String name = detector.getAddress();
+        List<Integer> data = new ArrayList<>();
+        List<DetectorData> detectorData = detector.getDetectorData();
+        int size = detectorData.size();
+
+        if (days == 1) {
+            data.add(detectorData.get(size - 1).getPositiveDetectedCount());
+        } else if (days == 7 || days == 31) {
+            List<DetectorData> calculateData = detectorData.stream().collect(Collectors.toList());
+            Collections.reverse(calculateData);
+            if (size < days) {
+                days = size;
+            }
+            for (int i = 0; i < days; i++) {
+                data.add(detectorData.get(i).getPositiveDetectedCount());
+            }
+        }
+        return (new ChartSeriesDTO(name, data));
     }
 
     public ChartDTO buildChartFromDetector(Detector detector, Period period) {

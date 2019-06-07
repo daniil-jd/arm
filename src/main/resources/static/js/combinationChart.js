@@ -45,7 +45,6 @@ function drawCombinationChart() {
     //     }
     // });
 
-
     var chartComb = Highcharts.chart('combination', options);
     console.log(testdata);
     chartComb.series.push(testdata);

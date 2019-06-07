@@ -1,11 +1,11 @@
-function drawChart(chart_1) {
+function drawChart(chart, id) {
     var testData = [];
     // testData.add();
     // console.log(chart_1.xAxisCategories);
-    var chart = Highcharts.chart('chart', {
+    var chart = Highcharts.chart(id, {
 
         title: {
-            text: chart_1.title
+            text: chart.title
         },
 
         subtitle: {
@@ -14,11 +14,11 @@ function drawChart(chart_1) {
 
         yAxis: {
             title: {
-                text: chart_1.yaxisText
+                text: chart.yaxisText
             }
         },
         xAxis: {
-            categories: chart_1.xaxisCategories
+            categories: chart.xaxisCategories
         },
         legend: {
             layout: 'vertical',
@@ -34,15 +34,12 @@ function drawChart(chart_1) {
             }
         },
 
-        // series: [
-        //     ],
-
         series: [{
-            name: chart_1.series[0].name,
-            data: chart_1.series[0].data //350, 452, 683, 601, 598, 535, 340, 340
+            name: chart.series[0].name,
+            data: chart.series[0].data //350, 452, 683, 601, 598, 535, 340, 340
         }, {
-            name: chart_1.series[1].name,
-            data: chart_1.series[1].data //673, 820, 1156, 1024, 1055, 998, 832, 720
+            name: chart.series[1].name,
+            data: chart.series[1].data //673, 820, 1156, 1024, 1055, 998, 832, 720
         }],
 
         responsive: {
