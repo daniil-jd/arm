@@ -26,6 +26,7 @@ public class ReceivingController {
 
     @GetMapping("/")
     public String getDetectorInfo(Model model) throws IOException {
+        //comment that need to be removed
         RestTemplate restTemplate = new RestTemplate();
         List<Detector> detectors = new ArrayList<>();
         for (String url : getUrls()) {
