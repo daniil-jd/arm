@@ -1,9 +1,7 @@
 package ru.arm.gm.controllers;
 
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import ru.arm.gm.domain.Detector;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,17 +26,17 @@ public class ReceivingController {
 
     @GetMapping("/")
     public String getDetectorInfo(Model model) throws IOException {
+        //regular comment
         RestTemplate restTemplate = new RestTemplate();
+        //false comment
         List<Detector> detectors = new ArrayList<>();
         for (String url : getUrls()) {
-            detectors.add(restTemplate.getForObject(
-                    url + "/api/detector",
-                    Detector.class));
+            if (isURL(url)) {
+                detectors.add(restTemplate.getForObject(
+                        url + "/api/detector",
+                        Detector.class));
+            }
         }
-
-//        Detector detector = restTemplate.getForObject(
-//                        "http://localhost:8080/api/detector",
-//                        Detector.class);
         model.addAttribute("detectors", detectors);
         return "detector";
     }
@@ -50,11 +47,12 @@ public class ReceivingController {
      * @throws IOException если нет файла проперти
      */
     private List<String> getUrls() throws IOException {
-//        File file = new ClassPathResource("detectors-urls.properties").getFile();
-        //Resource resource = getClass().getClassLoader().getResources("detectors-urls.properties");
-        InputStream is = getClass().getClassLoader().getResourceAsStream("detectors-urls.properties");
+        FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext();
+        Resource res = ctx.getResource("config/detectors-urls.properties");
+
+        File file = res.getFile();
         Properties properties = new Properties();
-        properties.load(is);
+        properties.load(new FileReader(file));
 
         List<String> urls = new ArrayList<>();
         for (Object prop : properties.values()) {
@@ -63,4 +61,12 @@ public class ReceivingController {
         return urls;
     }
 
+    /**
+     * Является ли строка URL'ом.
+     * @param url url
+     * @return true - является
+     */
+    private boolean isURL(String url) {
+        return url.contains("http://") && url.contains(":80");
+    }
 }
