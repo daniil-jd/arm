@@ -28,6 +28,7 @@ public class ReceivingController {
     public String getDetectorInfo(Model model) throws IOException {
         //regular comment
         RestTemplate restTemplate = new RestTemplate();
+        //false comment
         List<Detector> detectors = new ArrayList<>();
         for (String url : getUrls()) {
             if (isURL(url)) {
