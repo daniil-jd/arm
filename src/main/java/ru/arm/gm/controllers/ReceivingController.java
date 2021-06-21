@@ -49,9 +49,9 @@ public class ReceivingController {
         FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext();
         Resource res = ctx.getResource("config/detectors-urls.properties");
 
-        File fileRes = res.getFile();
+        File file = res.getFile();
         Properties properties = new Properties();
-        properties.load(new FileReader(fileRes));
+        properties.load(new FileReader(file));
 
         List<String> urls = new ArrayList<>();
         for (Object prop : properties.values()) {
